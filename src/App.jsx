@@ -3,8 +3,8 @@ import "./App.css";
 import authservice from "./appwrite/Auth";
 import { login, logout } from "./store/authSlice";
 import { useEffect, useState } from "react";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const [Loading, setLoading] = useState(true);
