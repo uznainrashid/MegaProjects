@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import authservice from "../appwrite/Auth";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../store/authSlice";
-import { Button, Input, Logo } from ".Index.js";
+import { Button, Input, Logo } from "./Index.js";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 
@@ -10,7 +10,7 @@ const Signup = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [register, handleSubmit] = useForm();
+  const {register, handleSubmit} = useForm();
   const create = async (data) => {
     setError("");
     try {
