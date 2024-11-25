@@ -5,8 +5,10 @@ import { login, logout } from "./store/authSlice";
 import { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import { Outlet } from "react-router-dom";
 
 function App() {
+  console.log(import.meta.env.VITE_APPWRITE_URL)
   const [Loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -14,9 +16,9 @@ function App() {
       .getCurrentUser()
       .then((userData) => {
         if (userData) {
-          dispatch(login({ userData }));
+          dispatch(login({userData}));
         } else {
-          dispatch(logout);
+          dispatch(logout());
         }
       })
       .finally(() => setLoading(false));
@@ -27,7 +29,7 @@ function App() {
     <div className="w-full block">
       <Header/>
       <main>
-        TODO : {/* <Outlet/> */}
+         <Outlet/>
       </main>
       <Footer/>
     </div>

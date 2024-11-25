@@ -1,6 +1,6 @@
 import Footer from "./Footer/Footer";
 import Header from "./Header/Header";
-import LogoutBtn from "./logoutBtn";
+import LogoutBtn from "./Header/logoutBtn";
 import Container from "./Container/Container";
 import Logo from "./Logo";
 import RTE from "./RTE";
@@ -10,7 +10,7 @@ import Signup from "./Signup";
 import Login from "./Login";
 import PostCard from "./PostCard";
 import PostForm from "./post-form/PostForm";
-import AuthLayout from "./AuthLayout"
+import AuthLayout from "./AuthLayout";
 import Button from "./Button";
 export {
   Footer,
@@ -26,5 +26,5 @@ export {
   PostCard,
   PostForm,
   AuthLayout,
-  Button
+  Button,
 };

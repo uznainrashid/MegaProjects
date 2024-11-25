@@ -17,7 +17,7 @@ import AllPosts from "./Pages/Allpost.jsx";
 import { AuthLayout, Login } from "./components/Index.js";
 
 
-const router = createBrowserRouter([
+const router = createBrowserRouter( [
 {
   path: "/",
   element: <App/>,
@@ -74,8 +74,8 @@ const router = createBrowserRouter([
   element: <Post />,
 },
   ]
-}
-])
+}]
+)
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

@@ -10,15 +10,17 @@ const Signup = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {register, handleSubmit} = useForm();
+  const { register, handleSubmit } = useForm();
   const create = async (data) => {
     setError("");
     try {
-      const account = await authservice.createAccount(data);
-      if (account) {
+      const userData = await authservice.createAccount(data);
+      if (userData) {
         const userData = await authservice.getCurrentUser();
-        if (userData) dispatch(login(userData));
-        navigate("/");
+        if (userData) {
+          dispatch(login(userData));
+          navigate("/");
+        }
       }
     } catch (error) {
       setError(error.message);
@@ -56,28 +58,30 @@ const Signup = () => {
                 required: true,
               })}
             />
-              <Input
-                        label="Email: "
-                        placeholder="Enter your email"
-                        type="email"
-                        {...register("email", {
-                            required: true,
-                            validate: {
-                                matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                                "Email address must be a valid address",
-                            }
-                        })}
-                        />
-                        <Input
-                        label="Password: "
-                        type="password"
-                        placeholder="Enter your password"
-                        {...register("password", {
-                            required: true,})}
-                        />
-                        <Button type="submit" className="w-full">
-                            Create Account
-                        </Button>
+            <Input
+              label="Email: "
+              placeholder="Enter your email"
+              type="email"
+              {...register("email", {
+                required: true,
+                validate: {
+                  matchPatern: (value) =>
+                    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
+                    "Email address must be a valid address",
+                },
+              })}
+            />
+            <Input
+              label="Password: "
+              type="password"
+              placeholder="Enter your password"
+              {...register("password", {
+                required: true,
+              })}
+            />
+            <Button type="submit" className="w-full">
+              Create Account
+            </Button>
           </div>
         </form>
       </div>
