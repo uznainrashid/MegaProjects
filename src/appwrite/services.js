@@ -102,9 +102,7 @@ export class Service {
     }
   }
   getFilePreview(fileId) {
-    return this.bucket.getFilePreview(
-        conf.apprriteBucketId, fileId
-    );
+    return this.bucket.getFilePreview(conf.apprriteBucketId, fileId);
   }
 }
 
