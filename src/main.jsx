@@ -14,7 +14,7 @@ import EditPost from "./Pages/EditPost.jsx";
 import AllPosts from "./Pages/Allpost.jsx";
 import { AuthLayout, Login } from "./components/Index.js";
 
-const router = createBrowserRouter([
+const routers = createBrowserRouter([
   {
     path: "/",
     element: <App />,
@@ -43,7 +43,6 @@ const router = createBrowserRouter([
         path: "/all-posts",
         element: (
           <AuthLayout authentication>
-            {" "}
             <AllPosts />
           </AuthLayout>
         ),
@@ -52,7 +51,6 @@ const router = createBrowserRouter([
         path: "/add-post",
         element: (
           <AuthLayout authentication>
-            {" "}
             <AddPost />
           </AuthLayout>
         ),
@@ -77,7 +75,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <RouterProvider router={routers} />
     </Provider>
   </StrictMode>
 );

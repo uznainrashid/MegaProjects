@@ -5,9 +5,9 @@ export class AuthService {
   Client = new Client();
   account;
   constructor() {
-    this.Client.setEndpoint(conf.apprriteUrl).setProject(
-      conf.apprriteProjectID
-    );
+    this.Client
+    .setEndpoint(conf.apprriteUrl)
+    .setProject(conf.apprriteProjectID);
     this.account = new Account(this.Client);
   }
   async createAccount({ email, password, name }) {
@@ -51,5 +51,5 @@ export class AuthService {
     }
   }
 }
-const authservice = new AuthService();
-export default authservice;
+const authService = new AuthService();
+export default authService;
