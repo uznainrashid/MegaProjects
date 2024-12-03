@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
-import { Button, Select, Input, RTE } from "../Index";
 import { useForm } from "react-hook-form";
-import services from "../../appwrite/services";
+import AppWriteServices from "../../appwrite/services";
 import { useNavigate } from "react-router-dom";
+import { Button, Select, Input, RTE } from "../Index";
 import { useSelector } from "react-redux";
 
 function PostForm({ post }) {
@@ -15,15 +15,17 @@ function PostForm({ post }) {
         status: post?.status || "active",
       },
     });
-    const userData = useSelector((state) => state.auth.userData);
-    const navigate = useNavigate();
+  const userDatas = useSelector((state) => state.userData);
+  const navigate = useNavigate();
   const submit = async (data) => {
     if (post) {
-      const file = data.image[0] ? services.UploadFile(data.image[0]) : null;
+      const file = data.image[0]
+        ? AppWriteServices.UploadFile(data.image[0])
+        : null;
       if (file) {
-        services.deleteFile(post.featuredImage);
+        AppWriteServices.deleteFile(post.featuredImage);
       }
-      const dbPost = await services.UpdatePost(post.$id, {
+      const dbPost = await AppWriteServices.UpdatePost(post.$id, {
         ...data,
         featuredImage: file ? file.$id : undefined,
       });
@@ -31,13 +33,13 @@ function PostForm({ post }) {
         navigate(`/post/${dbPost.$id}`);
       }
     } else {
-      const File = await services.UploadFile(data.image[0]);
-      if (File) {
-        const fileId = File.$id;
+      const file = await AppWriteServices.UploadFile(data.image[0]);
+      if (file) {
+        const fileId = file.$id;
         data.featuredImage = fileId;
-        const dbPost = await services.createPost({
+        const dbPost = await AppWriteServices.createPost({
           ...data,
-          userId: userData.$id,
+          userId: userDatas.$id,
         });
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
@@ -53,22 +55,18 @@ function PostForm({ post }) {
         .replace(/^[a-zA-Z\d\s]/g, "-")
         .replace(/\s /g, "-");
     }
-  });
+    return "";
+  }, []);
   React.useEffect(() => {
     const subscription = watch((value, { name }) => {
       if (name === "title") {
-        setValue(
-          "slug",
-          slugTransform(value.title, {
-            shouldValide: true,
-          })
-        );
+        setValue("slug", slugTransform(value.title), {
+          shouldValide: true,
+        });
       }
     });
 
-    return () => {
-      subscription.unsubscribe();
-    };
+    return () => subscription.unsubscribe();
   }, [watch, slugTransform, setValue]);
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
@@ -85,9 +83,7 @@ function PostForm({ post }) {
           className="mb-4"
           {...register("slug", { required: true })}
           onInput={(e) => {
-            setValue("slug", slugTransform(e.currentTarget.value), {
-              shouldValidate: true,
-            });
+            setValue("slug", slugTransform(e.currentTarget.value),{shouldValidate: true,});
           }}
         />
         <RTE
@@ -108,7 +104,7 @@ function PostForm({ post }) {
         {post && (
           <div className="w-full mb-4">
             <img
-              src={appwriteService.getFilePreview(post.featuredImage)}
+              src={AppWriteServices.getFilePreview(post.featuredImage)}
               alt={post.title}
               className="rounded-lg"
             />

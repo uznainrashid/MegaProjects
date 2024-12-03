@@ -19,6 +19,7 @@ export {
   Container,
   Logo,
   RTE,
+  Button,
   Input,
   Select,
   Signup,
@@ -26,5 +27,4 @@ export {
   PostCard,
   PostForm,
   AuthLayout,
-  Button,
 };

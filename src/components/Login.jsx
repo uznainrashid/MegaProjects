@@ -90,15 +90,16 @@ function Login() {
   const login = async(data) => {
       setError("")
       try {
-          const session = await authService.login(data)
-          if (session) {
+          const sessions = await authService.login(data)
+          if (sessions) {
               const userData = await authService.getCurrentUser()
-              if(userData) dispatch(authlogin(userData));
-              navigate("/")
-          }
-      } catch (error) {
-          setError(error.message)
-      }
+              if(userData) {dispatch(authlogin(userData));
+              navigate("/")}
+            }
+        } 
+        catch (error) {
+            setError(error.message)
+        }
   }
 
 return (
