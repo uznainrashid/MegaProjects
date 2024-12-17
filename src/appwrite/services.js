@@ -1,18 +1,18 @@
 import conf from "../conf/conf";
-import { Client, Databases, ID, Storage, Query } from "appwrite";
+import { Client, Databases, ID, Query, Storage } from "appwrite";
 
 export class Service {
   Client = new Client();
   databases;
   bucket;
   constructor() {
-    this.Client.
-    setEndpoint(conf.appwriteUrl)
-    .setProject(conf.appwriteProjectID);
+    this.Client.setEndpoint(conf.appwriteUrl).setProject(
+      conf.appwriteProjectID
+    );
     this.databases = new Databases(this.Client);
     this.bucket = new Storage(this.Client);
   }
-  async createPost({ title, slug, content, featuredImage, status, userId }) {
+  async createPost({slug ,  title, content, featuredImage, status, userId }) {
     try {
       return await this.databases.createDocument(
         conf.appwriteDataBaseId,
@@ -23,7 +23,7 @@ export class Service {
           status,
           content,
           featuredImage,
-          userId,
+          userId
         }
       );
     } catch (error) {
@@ -85,9 +85,13 @@ export class Service {
       return false;
     }
   }
-  async UploadFile(file) {
+  async UploadFile(files) {
     try {
-      await this.bucket.createFile(conf.appwriteBucketId, ID.unique(), file);
+      return await this.bucket.createFile(
+        conf.appwriteBucketId,
+        ID.unique(),
+        files
+      );
     } catch (error) {
       console.log("appwrite service :: upload :: Error", error);
     }

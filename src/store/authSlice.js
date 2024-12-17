@@ -9,7 +9,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: {
+   initialState:{
     status: false,
     userData: null,
     },
