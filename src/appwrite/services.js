@@ -12,7 +12,7 @@ export class Service {
     this.databases = new Databases(this.Client);
     this.bucket = new Storage(this.Client);
   }
-  async createPost({slug ,  title, content, featuredImage, status, userId }) {
+  async createPost({ slug, title, content, featuredImage, status, userId }) {
     try {
       return await this.databases.createDocument(
         conf.appwriteDataBaseId,
@@ -23,7 +23,7 @@ export class Service {
           status,
           content,
           featuredImage,
-          userId
+          userId,
         }
       );
     } catch (error) {
@@ -62,12 +62,12 @@ export class Service {
   }
   async getPost(slug) {
     try {
-      await this.databases.getDocument(
+      return await this.databases.getDocument(
         conf.appwriteDataBaseId,
         conf.appwriteCollectionId,
         slug
       );
-      return true;
+    
     } catch (error) {
       console.log("appwrite services :: getPost :: Error", error);
       return false;
@@ -105,9 +105,9 @@ export class Service {
       return false;
     }
   }
-  getFilePreview(fileId) {
-    return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
-  }
+  getFilePreviews(fileId){
+    return this.bucket.getFilePreview(conf.appwriteBucketId , fileId
+    )}
 }
 
 const service = new Service();

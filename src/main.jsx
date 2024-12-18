@@ -68,7 +68,7 @@ const routers = createBrowserRouter([
         path: "/post/:slug",
         element: <Post />,
       },
-    ],
+    ]
   },
 ]);
 
